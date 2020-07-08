@@ -1,0 +1,61 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>local_repo_setup.md</title><style></style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1><a id="Local_Git_Repository_Setup_for_Windows_0"></a>Local Git Repository Setup for Windows:</h1>
+<hr>
+<h3 class="code-line" data-line-start=3 data-line-end=4><a id="1_Git_Config_Setup_3"></a>1. Git Config Setup</h3>
+<p class="has-line-data" data-line-start="4" data-line-end="5">Upon opening <a href="https://gitforwindows.org/">Git Bash for Windows</a> the first time, open terminal/shell and type:</p>
+<pre><code class="has-line-data" data-line-start="6" data-line-end="9" class="language-git">$ git config --global user.name &quot;Your name here&quot;
+$ git config --global user.email &quot;Your email here&quot;
+</code></pre>
+<h3 class="code-line" data-line-start=10 data-line-end=11><a id="2_Creating_an_SSH_keypair_10"></a>2. Creating an SSH keypair</h3>
+<p class="has-line-data" data-line-start="11" data-line-end="12">If you have not yet created a public/private keypair for your machine, execute the following commands:</p>
+<pre><code class="has-line-data" data-line-start="13" data-line-end="15" class="language-git">$ ssh-keygen -t rsa -C &quot;Your email here&quot;
+</code></pre>
+<p class="has-line-data" data-line-start="15" data-line-end="17">You may also avoid the use of SSH keys by using the <a href="https://desktop.github.com/">GitHub Desktop</a>.<br>
+You will be prompted to save your keypair, press enter to save it in the default location, and press enter twice more to save it with no security passphrase.</p>
+<pre><code class="has-line-data" data-line-start="18" data-line-end="23" class="language-git">Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/kattw/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+</code></pre>
+<h3 class="code-line" data-line-start=23 data-line-end=24><a id="3_Add_SSH_keypair_to_your_GitHub_Account_23"></a>3. Add SSH keypair to your GitHub Account</h3>
+<p class="has-line-data" data-line-start="24" data-line-end="25">Copy your SSH Public Key into you Github Account Settings:</p>
+<ul>
+<li class="has-line-data" data-line-start="25" data-line-end="26">Go to your Github -&gt; Account Settings</li>
+<li class="has-line-data" data-line-start="26" data-line-end="27">Click “SSH Keys” on the left menu bar.</li>
+<li class="has-line-data" data-line-start="27" data-line-end="28">Click “Add SSH Key”.</li>
+<li class="has-line-data" data-line-start="28" data-line-end="30">Add a title (ex: Default_Public_Key) and paste the entire public key into the text box.</li>
+</ul>
+<p class="has-line-data" data-line-start="30" data-line-end="31">To test your connection to the remote host, type:</p>
+<pre><code class="has-line-data" data-line-start="32" data-line-end="34" class="language-git">$ ssh -T git@github.com
+</code></pre>
+<p class="has-line-data" data-line-start="34" data-line-end="35">If you see the following outcome, your connection was successful.</p>
+<pre><code class="has-line-data" data-line-start="36" data-line-end="39" class="language-git">Hi username! You've successfully authenticated, but Github does
+not provide shell access.
+</code></pre>
+<h3 class="code-line" data-line-start=39 data-line-end=40><a id="4_Creating_a_Local_Repository_39"></a>4. Creating a Local Repository</h3>
+<p class="has-line-data" data-line-start="40" data-line-end="41">You need to cd into the directory where you want to keep your local repository, and run:</p>
+<pre><code class="has-line-data" data-line-start="42" data-line-end="44" class="language-git">$ git init
+</code></pre>
+<p class="has-line-data" data-line-start="44" data-line-end="45">Within this directory, create a file (usually a README first) and save it to the directory. Then, run the following command to add this file to your list of tracked files:</p>
+<pre><code class="has-line-data" data-line-start="46" data-line-end="48" class="language-git">$ git add .
+</code></pre>
+<p class="has-line-data" data-line-start="48" data-line-end="50">The <code>.</code> specifies ‘all’ files, but you can select specific ones as well if you please.<br>
+To commit these files to Git, run these commands to commit the change along with an intial comment of your choice, and push them to the remomte repository on <a href="https://github.com">github.com</a>.</p>
+<pre><code class="has-line-data" data-line-start="51" data-line-end="54" class="language-git">$ git commit -m 'Initial Comment'
+$ git push -u origin master
+</code></pre>
+<p class="has-line-data" data-line-start="54" data-line-end="55">You can check the status of your tracked and untracked files at any time with this command:</p>
+<pre><code class="has-line-data" data-line-start="56" data-line-end="58" class="language-git'">$ git status
+</code></pre>
+<p class="has-line-data" data-line-start="58" data-line-end="60">And that’s the bare bones of how to set up and connect a git repository on your local machine to one on the GitHub website.<br>
+ </p>
+<hr>
+<h3 class="code-line" data-line-start=61 data-line-end=62><a id="Common_Errors_61"></a>Common Errors</h3>
+<p class="has-line-data" data-line-start="62" data-line-end="63">If you instead recieve the error <code>git@github.com: Permission denied (publickey).</code> you may need to add your key to the SSH authentication agent with the followning commands:</p>
+<pre><code class="has-line-data" data-line-start="65" data-line-end="68" class="language-git">$ eval $(ssh-agent -s)
+$ ssh-add ~/.ssh/id_rsa
+</code></pre>
+<p class="has-line-data" data-line-start="68" data-line-end="70">If the error <code>remote: Permission to KatherineWeller/web_dev.git denied to xilinx-xhub-users-g1. fatal: unable to access 'https://github.com/KatherineWeller/web_dev.git/': The requested URL returned error: 403</code> is recieved, input this command to remedy:</p>
+<pre><code class="has-line-data" data-line-start="72" data-line-end="74" class="language-git">$ git remote set-url origin git@github.com:MrsColombo/elsevier-twitter-rest-api.git
+</code></pre>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body></html>
