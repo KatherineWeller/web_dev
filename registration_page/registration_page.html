@@ -2,16 +2,23 @@
 <html>
 <head>
  <title>Registration Page</title>
+ <link rel="stylesheet" type="text/css" href="registration.css">
+
 </head>
 <body>
 	<h1>Registration</h1>
+	<img src="banner-bg-gears.jpg" alt="gear banner" id="banner">
 
 <form>
+	<div id="personalinfo">
+<div id="FullName">
 	<label for="first">First Name:</label>
 	<input name="first" id="first" type="text" placeholder="William" required>
 	<label for="last:">Last Name:</label>
-	<input name="last" id="last" type="text" palceholder="Smith" required>
-<div>
+	<input name="last" id="last" type="text" placeholder="Smith" required>
+</div>
+
+<div id="Gender">
 	<label for="Male">Male</label>
 	<input id="Male" name="gender" value="Male" type="radio">
 	<label for="Female">Female</label>
@@ -20,14 +27,14 @@
 	<input id="Other" name="gender" value="other" type="radio">
 </div>
 
-<div>
+<div id="emailaddress">
 	<label for="email">Email:</label>
 	<input name="email" type="email" placeholder="williamsmith@abc.com" required>
 	<label for="password">Password:</label>
 	<input pattern=".{5,10}" title="Password must be between 5 and 10 characters" name="password" type="password" required> 
 </div>
 
-<div>
+<div id="birthdate">
 	<label>Birthday:
 		<select name="month">
 			<option>Day</option>
@@ -51,14 +58,26 @@
 		</select>
 	</label>
 </div>
+</div>
 
-<div>
+<div id="break">
+	</div>
+
+<div id="agreed">
 	<label for="agreed">I agree to the terms and conditions:</label>
 	<input type="checkbox" id="agreed" name="agreed">
 </div>
+
+<div id="break">
+	</div>
 
 <input type="Submit">
 </form>
 
 </body>
+
+	<img src="shield.png" alt="shield logo" id="shield1">
+	<img src="shield.png" alt="shield logo" id="shield2">
+	<img src="shield.png" alt="shield logo" id="shield3">
+
 </html>
