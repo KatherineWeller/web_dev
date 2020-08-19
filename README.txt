@@ -3,6 +3,6 @@
 
 7/8/2020 - Added personal setup guide webpage in HTML format for creating a local git repository with an SSH keypair, as well as some common errors to encounter during the process.
 
-7/27/2020 - Created basic registration page with .css styling
+7/27/2020 - Created basic registration page with .css styling [no bootstrap elements included]
 
 Updates to come on both front-end and back-end undertakings.
