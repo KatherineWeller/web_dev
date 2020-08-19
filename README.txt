@@ -5,4 +5,6 @@
 
 7/27/2020 - Created basic registration page with .css styling [no bootstrap elements included]
 
+8/19/20 - Created basic image gallery using .css styling and bootstrap elements.
+
 Updates to come on both front-end and back-end undertakings.
