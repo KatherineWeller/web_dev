@@ -7,4 +7,6 @@
 
 8/19/20 - Created basic image gallery using .css styling and bootstrap elements.
 
+8/26/20 - Created mountain themed website with html, .css styling, and basic javascript.
+
 Updates to come on both front-end and back-end undertakings.
