@@ -1,0 +1,76 @@
+body {
+	background: #a8b599;
+	font-family: "Nunito", sans-serif;
+}
+
+#navbar_main .navbar-brand{
+	color: black;
+}
+
+#navbar_main {
+	font-weight: 100;
+	font-size: 0.8em;
+}
+
+.nav-link {
+	color: white !important;
+}
+
+.nav-link:hover {
+	color: lightgreen !important;
+}
+
+#row1 {
+	margin-top: 0;
+}
+
+#mount_paragraph {
+	font-size: 1rem;
+	padding-bottom: 30px;
+	padding-top: 30px;
+}
+
+#mountain_views_text {
+	font-weight: 100;
+	font-size: 2rem;
+}
+
+.fas {
+	color: #4e6f4b;
+}
+
+#mtn_text_2 {
+	font-size: 30px;
+	padding-top: 30px;
+}
+
+section {
+	margin-bottom: 60px;
+	height: 120%;
+}
+
+.navbar.scrolled {
+	background: #4e6f4b;
+	transition: background 200ms;
+}
+
+img {
+	overflow: hidden;
+	max-width: 100%;
+}
+
+@media (max-width: 1050px) {
+	#mountain_views_text {
+		font-weight: 100;
+		font-size: 1.7rem;
+	}
+
+	#mount_paragraph {
+		font-weight: 100;
+		font-size: 0.9rem;
+	}
+	#mtn_text {
+		font-size: 20px;
+	}
+}
+
