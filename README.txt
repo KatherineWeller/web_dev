@@ -11,4 +11,6 @@
 
 10/4/20 - Added multiple test sites to java_events for javascript experience. HTML DOM.
 
+5/7/21 - Began incorporation Node.js and NPM.
+
 Updates to come on both front-end and back-end undertakings.
