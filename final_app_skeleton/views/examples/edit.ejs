@@ -1,0 +1,34 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <h1 class="text-center">Edit Example</h1>
+    <div class="col-6 offset-3">
+        <form action="/examples/<%=example._id%>?_method=PUT" method="POST" novalidate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="example[title]"
+                    value="<%=example.title %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="example[location]"
+                    value="<%=example.location %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="image">Image Url</label>
+                <input class="form-control" type="text" id="image" name="example[image]"
+                    value="<%=example.image %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description"
+                    name="example[description]" required><%= example.description%></textarea>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">Update Example</button>
+            </div>
+        </form>
+        <a href="/examples/<%= example._id%>">Back To Examples</a>
+
+    </div>
+</div>
