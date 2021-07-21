@@ -2,17 +2,22 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const { exampleSchema } = require('./schemas.js')
-const catchAsync = require('./utils/catchAsync')
-const ExpressError = require('./utils/ExpressError')
+const session = require('express-session');
+const flash = require('connect-flash');
+const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
+
 const Example = require('./models/example');
-const { runInNewContext } = require('vm');
+const Review = require("./models/review");
+
+const examples = require('./routes/examples');
+const reviews = require('./routes/reviews');
 
 mongoose.connect('mongodb://localhost:27017/exampledb', {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false  //shuts mongo up about the deprecation warning
 });
 
 const db = mongoose.connection;
@@ -29,62 +34,37 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(flash());
 
-const validateExample = (req, res, next) => {
-    const { error } = exampleSchema.validate(req.body);
-    if(error){
-        const msg = error.details.map(el => el.message).join(',')
-        throw new ExpressError(msg, 400)
-    } else {
-        next();
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    next();
+})
+
+const sessionConfig = {
+    secret: 'secretsecretsecret',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true, 
+        //milliseconds, seconds, min, hour, day (Date.now is in ms)
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+app.use(session(sessionConfig))
+
+app.use('/examples', examples)
+app.use('/examples/:id/reviews', reviews)
 
 app.get('/', (req, res) => {
     res.render('home')
 });
 
-app.get('/examples', catchAsync(async (req, res) => {
-    const examples = await Example.find({});
-    res.render('examples/index', { examples })
-}));
-
-app.get('/examples/new', (req ,res) => {
-    res.render('examples/new');
-});
-
-app.post('/examples', validateExample, catchAsync(async (req, res) => {
-    //if(!req.body.example) throw new ExpressError('Invalid Example Data', 400);
-    const example = new Example(req.body.example);
-    await example.save();
-    res.redirect(`/examples/${example._id}`)
-}))
-
-app.get('/examples/:id', catchAsync(async (req, res) => {
-    const example = await Example.findById(req.params.id)
-    res.render('examples/show', { example });
-}));
-
-app.get('/examples/:id/edit', catchAsync(async (req, res) => {
-    const example = await Example.findById(req.params.id)
-    res.render('examples/edit', { example });
-}))
-
-app.put("/examples/:id", validateExample, catchAsync(async (req,res) => {
-    const { id } = req.params;
-    const example = await Example.findByIdAndUpdate(id,{...req.body.example});
-    res.redirect(`/examples/${example._id}`)
-}))
-
-app.delete('/examples/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Example.findByIdAndDelete(id);
-    res.redirect('/examples');
-}))
-
 app.all('*', (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
-})
+});
 
 app.use((err, req, res, next) => {
     const {statusCode = 500} = err;
