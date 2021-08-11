@@ -26,7 +26,16 @@ const seedDB = async () => {
         const biome = new Example({
             danger_level: `${biomes[rand].danger_level}`,
             title: `${sample(descriptors)} ${sample(civilizations)}`,
-            image: 'https://source.unsplash.com/collection/483251',
+            images: [
+                {
+                    filename: 'Screenshot_8_xwfuc5',
+                    url: 'https://res.cloudinary.com/katto/image/upload/v1627585769/Screenshot_8_xwfuc5.png'
+                },
+                {
+                    filename:  'Screenshot_7_dexwbo',
+                    url: 'https://res.cloudinary.com/katto/image/upload/v1627585770/Screenshot_7_dexwbo.png'
+                }
+            ],
             description: 'This is an example description.',
         })
         await biome.save();

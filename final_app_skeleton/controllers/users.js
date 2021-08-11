@@ -1,13 +1,13 @@
 const User = require('../models/user');
 
 module.exports.renderRegister = (req, res) => {
-    res.render('users/register')
+    res.render('users/register');
 }
 
 module.exports.registerUser = async (req, res) => {
-    try{ 
-        const  { email, username, password } = req.body;
-        const user = new User({email, username});
+    try { 
+        const { email, username, password } = req.body;
+        const user = new User({ email, username });
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
@@ -15,13 +15,13 @@ module.exports.registerUser = async (req, res) => {
             res.redirect('/examples');
         })
     } catch (e) {
-        req.flash('error', e.message)
-        res.redirect('register')
+        req.flash('error', e.message);
+        res.redirect('register');
     }
 }
 
 module.exports.renderLogin = (req, res) => {
-    res.render('users/login')
+    res.render('users/login');
 }
 
 module.exports.loginUser = (req, res) => {

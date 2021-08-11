@@ -3,8 +3,34 @@
 
 <div class="row">
     <div class="col-6">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <% example.images.forEach((img, i) => { %> 
+              <div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+                <img src="<%= img.url%>" class="d-block w-100" alt="">
+              </div>
+              <div class="carousel-item">
+                <img src="<%= img.url %> " class="d-block w-100" alt="">
+              </div>
+              <% }) %> 
+            </div>
+            <% if(example.images.length > 1) { %>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+            <% } %>
+          </div>
         <div class="card mb-3">
-            <img src="<%= example.image%>" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title"><%= example.title%></h5>
                 <p class="card-text"><%= example.description%></p>
@@ -27,7 +53,7 @@
         </div>
     </div>
     <div class="col-6">
-        <% if(currentUser) { %> 
+        <% if(currentUser){ %> 
         <h2>Leave a Review</h2>
         <form action="/examples/<%= example._id %>/reviews" method="POST" class="mb-3 validated-form" novalidate>
             <div class="mb-3">
@@ -47,31 +73,30 @@
                   </fieldset>
             </div>
             <div class="mb-3">
-                <label class="form-label" for="body">Review</label>
-                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3"></textarea>
+                <label class="form-label" for="body">Review Text</label>
+                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
             </div>
-            <button class="btn-success">Submit</button>
+            <button class="btn btn-success">Submit</button>
         </form>
         <% } %> 
-    <%= for(let review of example.reviews) { %>
-        <div class="mb-3 card">
+    <% for(let review of example.reviews) { %>
+        <div class="card mb-3 ">
             <div class="card-body">
-                <h5 class="card-title">Rating: <%= review.rating%></h5>
-                <h3>Rated element name</h3>
-                <p class="starability-result" data-rating="<%= review.rating %>">
-                    Rated: <%= review.rating %> Stars
+                <h5 class="card-title"> <%= review.author.username%></h5>
+                <p class="starability-result" data-rating="<%=review.rating%>">
+                    Rated: <%= review.rating %> stars
                 </p>
-                <p class="card-text">Review: <%= review.body%></p>
+                <p class="card-text">Review: <%= review.body %></p>
                 <% if( currentUser && example.author.equals(currentUser._id)) {%> 
-                <form action="/examples/<%= example._id %>/reviews/<%= review._id %>?_method=DELETE" method='POST'>
-                    <button class="btn btn-sm btn-danger">DELETE</button>
+                <form action="/examples/<%= example._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
                 <% } %>
             </div>
         </div>
-    <% }%>
+    <% } %>
     </div>
 </div>

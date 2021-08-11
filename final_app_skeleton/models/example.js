@@ -2,9 +2,23 @@ const mongoose = require('mongoose');
 const Review = require('./review')
 const Schema = mongoose.Schema;
 
+// giving images their own schema
+const ImageSchema = new Schema({
+    url: String,
+    filename: String
+});
+
+// Return a thumnail version of the image so they are all uniform
+ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_200');
+});
+
+const opts = { toJSON: { virtuals: true } };
+
+// example schema to define set properties
 const exampleSchema = new Schema({
     title: String,
-    image: String,
+    images: [ImageSchema],
     danger_level: String,
     description: String,
     location: String,
@@ -20,9 +34,10 @@ const exampleSchema = new Schema({
     ]
 });
 
+// tool to delete example from database
 ExampleSchema.post('findOneAndDelete', async function (doc) {
-    if(doc){
-        await Review.remove({
+    if (doc) {
+        await Review.deleteMany({
             _id: {
                 $in: doc.reviews
             }

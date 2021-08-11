@@ -1,3 +1,4 @@
+const Example = require('../models/example');
 const Review = require("../models/review")
 
 module.exports.createReview = async (req, res) => {
@@ -12,9 +13,9 @@ module.exports.createReview = async (req, res) => {
 }
 
 module.exports.deleteReview = async (req, res) => {
-    const {id, reviewId} = req.params;
-    Examples.findByIdAndUpdate(id, {$pull: { reviews: reviewId } });
+    const { id, reviewId } = req.params;
+    await Examples.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
-    req.flash('success', 'Successfully deleted reivew.');
+    req.flash('success', 'Successfully deleted review')
     res.redirect(`/examples/${id}`);
 }
