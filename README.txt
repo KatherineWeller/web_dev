@@ -13,4 +13,4 @@
 
 5/7/21 - Began incorporation Node.js and NPM.
 
-Updates to come on both front-end and back-end undertakings.
+8/11/21 - Final push - app skeleton completed
