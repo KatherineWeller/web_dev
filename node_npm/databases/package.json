@@ -12,6 +12,6 @@
   "dependencies": {
     "connect-mongo": "^4.4.1",
     "express-session": "^1.17.1",
-    "mongoose": "^5.12.9"
+    "mongoose": "^8.9.5"
   }
 }
